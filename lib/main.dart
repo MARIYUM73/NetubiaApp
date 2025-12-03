@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/features/auth/presentation/Screens/SplashScreen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'Core/Constants/app_colors.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -22,8 +23,24 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
           debugShowCheckedModeBanner: false, // Debug banner hatany k liye
           title: 'Netubia',
+         // --- GLOBAL THEME SETUP ---
           theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+            // 1. Global Font (Jo aapne add kiya)
+            fontFamily: 'Gilroy', 
+            
+            // 2. Global Background Color
+            // Ye set karny se har nayi screen ka bg khud ba khud Dark Blue hoga
+            scaffoldBackgroundColor: AppColors.bgcolor, 
+
+            // 3. Global Text Color (White)
+            // 'apply' function puray text theme par ek sath color laga deta hai
+            textTheme: Theme.of(context).textTheme.apply(
+              bodyColor: Colors.white,    // Normal Text k liye
+              displayColor: Colors.white, // Headings k liye
+              fontFamily: 'Gilroy',       // Font family dobara confirm krden
+            ),
+
+            // 4. Material 3 use karein
             useMaterial3: true,
           ),
           home: const SplashPage(),

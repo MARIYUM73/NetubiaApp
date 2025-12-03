@@ -37,6 +37,7 @@ dependencies:
   flutter_svg: ^2.2.3
   flutter_screenutil: ^5.9.3
   country_code_picker: ^3.4.1
+  pinput: ^6.0.1
 
 dev_dependencies:
   flutter_test:
@@ -64,6 +65,12 @@ flutter:
   assets:
       - assets/images/
   #   - images/a_dot_ham.jpeg
+  fonts:
+    - family: Gilroy  # Ye naam puri app ma use hoga
+      fonts:
+        - asset: assets/fonts/Gilroy-Regular.ttf
+        - asset: assets/fonts/Gilroy-Bold.ttf
+          weight: 700  # Bold k liye weight define krna zaroori ha
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

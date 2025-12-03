@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../Constants/app_colors.dart';
 //import '../../Constants/app_colors.dart';
 
 
@@ -32,10 +33,10 @@ class CustomTextField extends StatelessWidget {
       child: TextField(
         controller: controller,
         obscureText: obscureText,
-        style: TextStyle(color: Colors.white, fontSize: 14.sp),
+        style: TextStyle(color: AppColors.offWhiteText, fontSize: 14.sp),
         decoration: InputDecoration(
           hintText: hintText,
-          hintStyle: TextStyle(color: Colors.grey, fontSize: 14.sp),
+          hintStyle: TextStyle(color: AppColors.offWhiteText, fontSize: 14.sp),
           border: InputBorder.none,
           contentPadding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 15.h),
           prefixIcon: prefixIcon,

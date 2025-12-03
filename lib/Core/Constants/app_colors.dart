@@ -14,6 +14,6 @@ class AppColors {
   static const Color primaryBlue = Color(0xFF2561F2); 
 
   // --- Text Colors ---
-static const Color whiteText = Color(0xFFFFFFFF);
-  static const Color offWhiteText = Color(0xFFFCFCFC);
+static const Color whiteText = Color(0xFFFCFCFC);
+  static const Color offWhiteText = Color(0xFFEBEBEB);
 }

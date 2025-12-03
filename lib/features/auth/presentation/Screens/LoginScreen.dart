@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/features/auth/presentation/Screens/SignupScreen.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -10,7 +11,6 @@ import 'package:flutter_application_1/Core/Common/Widgets/Custom_textfield.dart'
 // Apna naya widget
 import 'package:country_code_picker/country_code_picker.dart';
 
-
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -19,13 +19,13 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  // Password show/hide k liye variable
+  // Password show/hide variable
   bool _isPasswordVisible = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.bgcolor, // #021232
+      // Background Color hata diya (Global Theme se Navy Blue uthayega)
       body: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 24.w),
@@ -34,7 +34,7 @@ class _LoginPageState extends State<LoginPage> {
             children: [
               SizedBox(height: 40.h),
 
-              // --- 1. Logo (Center Aligned) ---
+              // --- 1. Logo ---
               Center(
                 child: SvgPicture.asset(
                   AppImages.appLogo,
@@ -49,16 +49,18 @@ class _LoginPageState extends State<LoginPage> {
               Text(
                 "Login",
                 style: TextStyle(
-                  color: AppColors.whiteText,
+                  // Color hata diya -> Ye Global Theme se WHITE lega
                   fontSize: 24.sp,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.bold, //
                 ),
               ),
               SizedBox(height: 8.h),
+              
+              // Subtitle (Override: Grey)
               Text(
                 "Welcome back! You've been missed!",
                 style: TextStyle(
-                  color: Colors.grey,
+                  color: Color(0xFFFCFCFC), // Explicitly Grey
                   fontSize: 14.sp,
                 ),
               ),
@@ -66,15 +68,11 @@ class _LoginPageState extends State<LoginPage> {
               SizedBox(height: 30.h),
 
               // --- 3. Mobile Number Input ---
-              // Design ma Country flag + Code hai
-            // --- 3. Mobile Number Input (Dynamic Country Picker) ---
-             // --- 3. Mobile Number Input (FIXED) ---
               CustomTextField(
                 hintText: "Mobile Number",
-                // FIX 1: prefixIcon k andar Container laga kar width fix ki
-                // Taaky "RenderFlex Overflow" na aye.
+                // Container width fix for Country Picker
                 prefixIcon: Container(
-                  width: 115.w, // Fixed width for Flag+Code area
+                  width: 115.w, 
                   padding: EdgeInsets.only(left: 10.w),
                   alignment: Alignment.centerLeft,
                   child: CountryCodePicker(
@@ -84,7 +82,7 @@ class _LoginPageState extends State<LoginPage> {
                     initialSelection: 'US',
                     favorite: const ['+1', 'US', 'PK'],
                     
-                    // Search Box Style
+                    // Search Box Styling
                     searchDecoration: InputDecoration(
                       prefixIcon: const Icon(Icons.search),
                       hintText: "Search Country",
@@ -94,7 +92,7 @@ class _LoginPageState extends State<LoginPage> {
                     dialogTextStyle: const TextStyle(color: Colors.black),
                     dialogBackgroundColor: Colors.white,
 
-                    // Custom Flag Builder
+                    // Custom Builder (Flag + Arrow + Code)
                     builder: (countryCode) {
                       return Row(
                         mainAxisSize: MainAxisSize.min,
@@ -105,7 +103,6 @@ class _LoginPageState extends State<LoginPage> {
                               borderRadius: BorderRadius.circular(4.r),
                             ),
                             clipBehavior: Clip.hardEdge,
-                            // Note: Agar Image error aye to App STOP kr k chalayen
                             child: Image.asset(
                               countryCode!.flagUri!,
                               package: 'country_code_picker', 
@@ -118,13 +115,13 @@ class _LoginPageState extends State<LoginPage> {
                           // Arrow
                           Icon(Icons.keyboard_arrow_down, color: Colors.white, size: 18.sp),
                           SizedBox(width: 6.w),
-                          // Code (+1)
+                          // Code
                           Text(
                             countryCode.dialCode!,
                             style: TextStyle(color: Colors.white, fontSize: 14.sp),
                           ),
                           SizedBox(width: 10.w),
-                          // Divider Line
+                          // Divider
                           Container(
                             height: 20.h,
                             width: 1,
@@ -136,6 +133,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               ),
+
               SizedBox(height: 15.h),
 
               // --- 4. Password Input ---
@@ -145,7 +143,7 @@ class _LoginPageState extends State<LoginPage> {
                 suffixIcon: IconButton(
                   icon: Icon(
                     _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
-                    color: Colors.grey,
+                    color: AppColors.offWhiteText,
                   ),
                   onPressed: () {
                     setState(() {
@@ -155,14 +153,14 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
 
-              // --- 5. Forgot Password ---
+              // --- 5. Forgot Password (Override: Grey) ---
               Align(
                 alignment: Alignment.centerRight,
                 child: TextButton(
                   onPressed: () {},
                   child: Text(
                     "Forgot Password?",
-                    style: TextStyle(color: Colors.grey, fontSize: 12.sp),
+                    style: TextStyle(color: AppColors.offWhiteText, fontSize: 12.sp),
                   ),
                 ),
               ),
@@ -173,50 +171,108 @@ class _LoginPageState extends State<LoginPage> {
               PrimaryButton(
                 title: "Login",
                 onPressed: () {
-                  print("Login Clicked");
+                Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => const RegisterScreen()),  );
                 },
               ),
 
               SizedBox(height: 30.h),
 
-              // --- 7. Divider (Or continue with) ---
-              Row(
-                children: [
-                  Expanded(child: Divider(color: Colors.grey.withOpacity(0.3))),
+              // --- 7. Divider (Override: Grey) ---
+      Row(
+  mainAxisAlignment: MainAxisAlignment.center, // Center ma laany k liye
+  children: [
+    // --- Left Line ---
+    SizedBox(
+      width: 80.w, // Yahan apni marzi ki width dein (Expanded hata diya)
+      child: Divider(
+        color: AppColors.offWhiteText,
+        thickness: 2, 
+      ),
+    ),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 10.w),
-                    child: Text("Or continue with", style: TextStyle(color: Colors.grey, fontSize: 12.sp)),
+                    child: Text(
+                      "Or continue with", 
+                      style: TextStyle(color: AppColors.offWhiteText, fontSize: 12.sp)
+                    ),
                   ),
-                  Expanded(child: Divider(color: Colors.grey.withOpacity(0.3))),
+                  // Right Line
+                 SizedBox(
+      width: 80.w, // Same width yahan dein
+      child: Divider(
+        color: AppColors.offWhiteText,
+        thickness: 2, 
+      ),
+    ),
                 ],
               ),
 
               SizedBox(height: 30.h),
 
-              // --- 8. Social Media Buttons ---
+              // --- 8. Social Buttons ---
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  _buildSocialButton(AppImages.google), // Google
-                  _buildSocialButton(AppImages.apple),        // Apple
-                  _buildSocialButton(AppImages.facebook),     // Facebook
+                  _buildSocialButton(AppImages.google),
+                  _buildSocialButton(AppImages.apple),
+                  _buildSocialButton(AppImages.facebook),
                 ],
               ),
 
-              SizedBox(height: 40.h),
+              SizedBox(height: 30.h),
 
-              // --- 9. Register Text ---
+              // --- 9. Terms & Privacy (Grey Base + White Highlights) ---
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10.w),
+                child: RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(
+                    style: TextStyle(
+                      color: AppColors.offWhiteText, // Base text Grey
+                      fontSize: 11.sp,
+                      height: 1.5,
+                      fontFamily: 'Gilroy', // Global font inherit karega, but safe side k liye
+                    ),
+                    children: [
+                      const TextSpan(text: "Continue with Google, Apple or Facebook, you agree to Netubia "),
+                      TextSpan(
+                        text: "Terms and Conditions",
+                        style: const TextStyle(
+                          color: AppColors.whiteText, // Highlight: White
+                          fontWeight: FontWeight.bold, // Highlight: Bold
+                        ),
+                      ),
+                      const TextSpan(text: " & "),
+                      TextSpan(
+                        text: "Privacy Policy",
+                        style: const TextStyle(
+                          color: AppColors.whiteText, // Highlight: White
+                          fontWeight: FontWeight.bold, // Highlight: Bold
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+              SizedBox(height: 30.h),
+
+              // --- 10. Register Text (Grey Base + Blue Highlight) ---
               Center(
                 child: RichText(
                   text: TextSpan(
                     text: "Not a member? ",
-                    style: TextStyle(color: Colors.grey, fontSize: 14.sp),
+                    style: TextStyle(
+                      color: AppColors.offWhiteText, // Base text Grey
+                      fontSize: 14.sp,
+                      fontFamily: 'Gilroy',
+                    ),
                     children: [
                       TextSpan(
                         text: "Register Yourself",
                         style: TextStyle(
-                          color: AppColors.primaryCyan, // Cyan color highlight
-                          fontWeight: FontWeight.bold,
+                          color: AppColors.primaryCyan, // Highlight: Cyan/Blue
+                          fontWeight: FontWeight.bold,  // Highlight: Bold
                         ),
                       ),
                     ],
@@ -224,7 +280,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               
-              SizedBox(height: 20.h), // Bottom Safe Area
+              SizedBox(height: 20.h),
             ],
           ),
         ),
@@ -232,36 +288,22 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  // Social Button Helper Method (Local Widget)
- // Social Button Helper Method
+  // Social Button Helper
   Widget _buildSocialButton(String assetPath) {
     return Container(
-      // 1. Container Dimensions from Design
-      width: 60.w,  
+      width: 60.w,
       height: 60.h,
-      
-      // 2. Icon ko Center karne k liye zaroori hai
-      alignment: Alignment.center, 
-      
+      alignment: Alignment.center,
       decoration: BoxDecoration(
-        color: const Color(0xFF000C24), // Hex code from design
-        
-        // 3. Radius from Design (18px)
+        color: const Color(0xFF000C24),
         borderRadius: BorderRadius.circular(18.r),
-        
-        // Subtle border styling
         border: Border.all(color: Colors.white.withOpacity(0.1)),
       ),
-      
-      // 4. SVG Icon Logic
       child: SvgPicture.asset(
         assetPath,
-        // Icon ka size Container se chota hona chahiye taaky wo center ma acha lagay.
-        // Design visual ma icon container ka 40-50% hai.
-        width: 28.w, 
+        width: 28.w,
         height: 28.h,
-
-        fit: BoxFit.contain, // Icon shape maintain rahy
+        fit: BoxFit.contain,
       ),
     );
   }
