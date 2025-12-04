@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/features/Browser/Presentation/Screens/Browser_Screen.dart';
 import 'package:flutter_application_1/features/auth/presentation/Screens/SplashScreen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'Core/Constants/app_colors.dart';
@@ -43,7 +44,7 @@ class MyApp extends StatelessWidget {
             // 4. Material 3 use karein
             useMaterial3: true,
           ),
-          home: const SplashPage(),
+          home: const DashboardScreen(),
         );
       },
     );

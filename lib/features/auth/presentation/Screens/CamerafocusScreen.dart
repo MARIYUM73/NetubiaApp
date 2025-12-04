@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/features/Browser/Presentation/Screens/Browser_Screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // --- Imports ---
@@ -168,8 +169,8 @@ class _UploadPhotoVerificationScreenState extends State<UploadPhotoVerificationS
               child: PrimaryButton(
                 title: "Continue",
                 onPressed: () {
-                  // Navigate to Final Success Screen
-                  print("Continue Clicked");
+                   Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => const DashboardScreen()),  );
+                 
                 },
               ),
             ),
